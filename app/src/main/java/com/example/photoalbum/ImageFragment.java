@@ -1,19 +1,28 @@
 package com.example.photoalbum;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ImageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ImageFragment extends Fragment {
+public class ImageFragment extends Fragment
+{
+    private Integer[] images={R.drawable.animal13,R.drawable.animal14,R.drawable.animal15,R.drawable.animal16,R.drawable.animal17,R.drawable.animal18};
+    private ImageView imageView;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +68,19 @@ public class ImageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_image, container, false);
+        View root = inflater.inflate(R.layout.fragment_image, container, false);
+        imageView = root.findViewById(R.id.imageView);
+        //Initialize image view to the first image
+        imageView.setImageResource(R.drawable.animal13);
+
+        //Set image to the index specified by option buttons(next/prev)
+        Bundle b =this.getArguments();
+        int index =0;
+        if(b!=null)
+        {
+            index =b.getInt("Index", 0);
+            imageView.setImageResource(index);
+        }
+        return root;
     }
 }
