@@ -79,7 +79,7 @@ public class ImageFragment extends Fragment
         if(b!=null)
         {
             index =b.getInt("Index", 0);
-            imageView.setImageResource(index);
+            imageView.setImageResource(images[index]);
         }
         return root;
     }
