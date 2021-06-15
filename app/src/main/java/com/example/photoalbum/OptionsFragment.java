@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,11 +74,13 @@ public class OptionsFragment extends Fragment {
         btn_next = root.findViewById(R.id.btn_Next);
         imageIndex = 0;
 
+        SetButtonVisibility();
 
         btn_prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 imageIndex--;
+                SetButtonVisibility();
                 buttonPressed.onButtonPressed(imageIndex);
             }
         });
@@ -86,6 +89,8 @@ public class OptionsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 imageIndex++;
+                //Log.e("imgind", imageIndex.toString());
+                SetButtonVisibility();
                 buttonPressed.onButtonPressed(imageIndex);
             }
         });
@@ -107,5 +112,18 @@ public class OptionsFragment extends Fragment {
     public void onDetach(){
         super.onDetach();
         buttonPressed=null;
+    }
+
+    public void SetButtonVisibility()
+    {
+        if (imageIndex == 0)
+            btn_prev.setEnabled(false);
+        else if(imageIndex >= 5)
+            btn_next.setEnabled(false);
+        else if(imageIndex>0 && imageIndex<5)
+        {
+            btn_next.setEnabled(true);
+            btn_prev.setEnabled(true);
+        }
     }
 }
