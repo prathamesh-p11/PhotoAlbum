@@ -24,6 +24,7 @@ public class OptionsFragment extends Fragment {
     private Button btn_next;
     private Integer imageIndex;
     private CheckBox chk_slideshow;
+    private  CheckBox chk_gallery;
     onButtonPressListener buttonListener;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -75,7 +76,7 @@ public class OptionsFragment extends Fragment {
         btn_next = root.findViewById(R.id.btn_Next);
         imageIndex = 0;
         chk_slideshow = root.findViewById(R.id.checkBox_SlideShow);
-
+        chk_gallery = root.findViewById(R.id.checkBox_Gallery);
         SetButtonVisibility();
 
         btn_prev.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +105,16 @@ public class OptionsFragment extends Fragment {
                     buttonListener.onCheckStatusChanged(true);
                 else
                     buttonListener.onCheckStatusChanged(false);
+            }
+        });
+
+        chk_gallery.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                    buttonListener.onGalleryCheckStatusChanged(true);
+                else
+                    buttonListener.onGalleryCheckStatusChanged(false);
             }
         });
 

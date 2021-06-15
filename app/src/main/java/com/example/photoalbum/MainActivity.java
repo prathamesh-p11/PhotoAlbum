@@ -9,6 +9,7 @@ public class MainActivity extends AppCompatActivity implements onButtonPressList
 {
     ImageFragment imageFragment;
     OptionsFragment optionsFragment;
+    GalleryFragment galleryFragment;
 
 
     @Override
@@ -18,6 +19,8 @@ public class MainActivity extends AppCompatActivity implements onButtonPressList
 
         imageFragment =new ImageFragment();
         optionsFragment = new OptionsFragment();
+        galleryFragment = new GalleryFragment();
+
         Bundle bundle  = new Bundle();
         bundle.putInt("Index", 0);
         imageFragment.setArguments(bundle);
@@ -48,4 +51,19 @@ public class MainActivity extends AppCompatActivity implements onButtonPressList
             slideFrag.startSlideShow(check);
         }
     }
+
+    @Override
+    public void onGalleryCheckStatusChanged(Boolean check)
+    {
+        if(check==true)
+        {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.imageFragContainerView, galleryFragment).addToBackStack("gallery fragment").commit();
+        }
+        else
+        {
+            getSupportFragmentManager().beginTransaction().replace(R.id.imageFragContainerView,galleryFragment).addToBackStack("imagefragment").commit();
+        }
+    }
+
 }
