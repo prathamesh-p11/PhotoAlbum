@@ -4,32 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
+    tools:context=".MainActivity"
+    android:background="#1e1e1e">
+    
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/imageFragContainerView"
         android:name="com.example.photoalbum.ImageFragment"
         android:layout_width="380dp"
-        android:layout_height="500dp"
+        android:layout_height="450dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.812"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/border_txt"
+        />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/optionsFragContainerView"
         android:name="com.example.photoalbum.OptionsFragment"
         android:layout_width="380dp"
-        android:layout_height="130dp"
+        android:layout_height="150dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageFragContainerView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageFragContainerView"
+        android:background="@drawable/border_txt"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

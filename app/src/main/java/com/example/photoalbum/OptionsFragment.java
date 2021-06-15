@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,8 +23,8 @@ public class OptionsFragment extends Fragment {
     private Button btn_prev;
     private Button btn_next;
     private Integer imageIndex;
-    onButtonPressListener buttonPressed;
-    Context context;
+    private CheckBox chk_slideshow;
+    onButtonPressListener buttonListener;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -68,11 +70,11 @@ public class OptionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_options, container, false);
         btn_prev = root.findViewById(R.id.btn_Previous);
         btn_next = root.findViewById(R.id.btn_Next);
         imageIndex = 0;
+        chk_slideshow = root.findViewById(R.id.checkBox_SlideShow);
 
         SetButtonVisibility();
 
@@ -81,7 +83,7 @@ public class OptionsFragment extends Fragment {
             public void onClick(View v) {
                 imageIndex--;
                 SetButtonVisibility();
-                buttonPressed.onButtonPressed(imageIndex);
+                buttonListener.onButtonPressed(imageIndex);
             }
         });
 
@@ -91,10 +93,19 @@ public class OptionsFragment extends Fragment {
                 imageIndex++;
                 //Log.e("imgind", imageIndex.toString());
                 SetButtonVisibility();
-                buttonPressed.onButtonPressed(imageIndex);
+                buttonListener.onButtonPressed(imageIndex);
             }
         });
 
+        chk_slideshow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                    buttonListener.onCheckStatusChanged(true);
+                else
+                    buttonListener.onCheckStatusChanged(false);
+            }
+        });
 
         return root;
     }
@@ -103,7 +114,7 @@ public class OptionsFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            buttonPressed = (onButtonPressListener) context;
+            buttonListener = (onButtonPressListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement onButtonPressed");
         }
@@ -111,7 +122,7 @@ public class OptionsFragment extends Fragment {
     @Override
     public void onDetach(){
         super.onDetach();
-        buttonPressed=null;
+        buttonListener=null;
     }
 
     public void SetButtonVisibility()

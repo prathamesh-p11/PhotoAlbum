@@ -1,5 +1,6 @@
 package com.example.photoalbum;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,7 +25,8 @@ public class ImageFragment extends Fragment
 {
     private Integer[] images={R.drawable.animal13,R.drawable.animal14,R.drawable.animal15,R.drawable.animal16,R.drawable.animal17,R.drawable.animal18};
     private ImageView imageView;
-
+    private Timer timer;
+    private Integer slideshowIndex;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,6 +85,29 @@ public class ImageFragment extends Fragment
             index =b.getInt("Index", 0);
             imageView.setImageResource(images[index]);
         }
+        slideshowIndex = 0;
+        timer = new Timer();
         return root;
+    }
+
+    public void startSlideShow(Boolean isChecked)
+    {
+        if(isChecked)
+        {
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run()
+                {
+                    int i = slideshowIndex % 6; //loop back to the start
+                    imageView.setImageResource(images[i]);
+                    slideshowIndex++;
+                }
+            }, 1000, 1000);
+        }
+        else
+        {
+            timer.cancel();
+            timer = new Timer();
+        }
     }
 }

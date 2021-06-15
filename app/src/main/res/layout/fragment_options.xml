@@ -13,10 +13,11 @@
 
         <Button
             android:id="@+id/btn_Previous"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:text="Previous"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="<<"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -24,10 +25,11 @@
 
         <Button
             android:id="@+id/btn_Next"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:text="Next"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text=">>"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -40,7 +42,7 @@
             android:layout_width="87dp"
             android:layout_height="46dp"
             android:layout_marginStart="60dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:text="Gallery"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_Previous" />
@@ -49,8 +51,8 @@
             android:id="@+id/checkBox_SlideShow"
             android:layout_width="110dp"
             android:layout_height="47dp"
-            android:layout_marginStart="84dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
             android:text="Slide Show"
             app:layout_constraintStart_toEndOf="@+id/checkBox_Gallery"
             app:layout_constraintTop_toBottomOf="@+id/btn_Next" />

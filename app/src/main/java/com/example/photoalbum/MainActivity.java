@@ -29,14 +29,23 @@ public class MainActivity extends AppCompatActivity implements onButtonPressList
     @Override
     public void onButtonPressed(Integer index)
     {
-
         //Get the index from option fragment (decrement or increment)
-
         //Pass it to image fragment to display corresponding image stored in array
         ImageFragment imgFrag = new ImageFragment();
-Bundle bundle = new Bundle();
-bundle.putInt("Index", index);
-imgFrag.setArguments(bundle);
-getSupportFragmentManager().beginTransaction().replace(R.id.imageFragContainerView, imgFrag).commit();
+        Bundle bundle = new Bundle();
+        bundle.putInt("Index", index);
+        imgFrag.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.imageFragContainerView, imgFrag).commit();
+    }
+
+    @Override
+    public void onCheckStatusChanged(Boolean check)
+    {
+        ImageFragment slideFrag;
+        slideFrag = (ImageFragment) getSupportFragmentManager().findFragmentById(R.id.imageFragContainerView);
+        if(slideFrag!=null)
+        {
+            slideFrag.startSlideShow(check);
+        }
     }
 }
