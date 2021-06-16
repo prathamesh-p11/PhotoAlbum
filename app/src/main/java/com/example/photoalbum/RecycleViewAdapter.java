@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {
 
     private int[] array;
+    private String[] names = {"Tiger", "Lion", "Bald Eagle", "Dog", "Dove", "Snake"};
 
     /**
      * Provide a reference to the type of views that you are using
@@ -32,6 +33,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         public TextView getTextView() {
             return textView;
         }
+        public ImageView getImageView() {return  imageView;}
     }
 
     /**
@@ -61,8 +63,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getTextView().setText(array[position]);
-        viewHolder.getTextView().setCompoundDrawablePadding(array[position]);
+        //viewHolder.getTextView().setText(array[position]);
+        //viewHolder.getTextView().setCompoundDrawablePadding(array[position]);
+        viewHolder.getImageView().setImageResource(array[position]);
+        viewHolder.getTextView().setText(names[position]);
     }
 
     // Return the size of your dataset (invoked by the layout manager)

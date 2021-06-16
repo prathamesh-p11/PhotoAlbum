@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -101,20 +102,39 @@ public class OptionsFragment extends Fragment {
         chk_slideshow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                    buttonListener.onCheckStatusChanged(true);
+                if(isChecked && chk_gallery.isChecked())
+                {
+                    Toast.makeText(getActivity(),"Please close gallery to view slide show",Toast.LENGTH_SHORT).show();
+                    chk_slideshow.toggle();
+                }
                 else
-                    buttonListener.onCheckStatusChanged(false);
+                {
+                    if(isChecked)
+                        buttonListener.onCheckStatusChanged(true);
+                    else
+                        buttonListener.onCheckStatusChanged(false);
+                }
             }
         });
 
         chk_gallery.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                    buttonListener.onGalleryCheckStatusChanged(true);
+
+                if(isChecked && chk_slideshow.isChecked())
+                {
+                    Toast.makeText(getActivity(),"Please close slideshow to view gallery",Toast.LENGTH_SHORT).show();
+                    chk_gallery.toggle();
+                }
+
                 else
-                    buttonListener.onGalleryCheckStatusChanged(false);
+                {
+                    if(isChecked)
+                        buttonListener.onGalleryCheckStatusChanged(true);
+                    else
+                        buttonListener.onGalleryCheckStatusChanged(false);
+                }
+
             }
         });
 

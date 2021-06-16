@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements onButtonPressList
     {
         ImageFragment slideFrag;
         slideFrag = (ImageFragment) getSupportFragmentManager().findFragmentById(R.id.imageFragContainerView);
+        
         if(slideFrag!=null)
         {
             slideFrag.startSlideShow(check);
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements onButtonPressList
         }
         else
         {
-            getSupportFragmentManager().beginTransaction().replace(R.id.imageFragContainerView,galleryFragment).addToBackStack("imagefragment").commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.imageFragContainerView,imageFragment).addToBackStack("imagefragment").commit();
         }
     }
 
