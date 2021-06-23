@@ -3,5 +3,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="next_symbol">&#62;&#62;</string>
     <string name="prev_symbol">&#60;&#60;</string>
+    <string name="animal_image">animal image</string>
+    <string name="gallery">Gallery</string>
+    <string name="slide_show">Slide Show</string>
+    <string name="image_no">Image No</string>
 
 </resources>

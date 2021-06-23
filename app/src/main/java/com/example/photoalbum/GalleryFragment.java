@@ -15,6 +15,13 @@ import android.view.ViewGroup;
  * Use the {@link GalleryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link GalleryFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+
 public class GalleryFragment extends Fragment {
 
     private RecyclerView view;
@@ -62,12 +69,19 @@ public class GalleryFragment extends Fragment {
         }
     }
 
+
+    /*
+     *
+     * use this function to create new fragment with new
+     * list of images in gallery list using layoutManager.
+     * */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_gallery, container, false);
         view = root.findViewById(R.id.recycleView);
 
+        // create type of view List using GridLayoutManager
         layoutManager =  new GridLayoutManager(getActivity(),2);
         view.setLayoutManager(layoutManager);
         adapter = new RecycleViewAdapter(images);

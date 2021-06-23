@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import android.widget.Toast;
  * Use the {@link OptionsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class OptionsFragment extends Fragment {
 
     private Button btn_prev;
@@ -59,6 +59,7 @@ public class OptionsFragment extends Fragment {
         return fragment;
     }
 
+    //Called after onAttach to do initial creation of a fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +69,8 @@ public class OptionsFragment extends Fragment {
         }
     }
 
+
+    //Called after onCreate to have the fragment instantiate its user interface
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -80,35 +83,35 @@ public class OptionsFragment extends Fragment {
         chk_gallery = root.findViewById(R.id.checkBox_Gallery);
         SetButtonVisibility();
 
-        btn_prev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageIndex--;
-                SetButtonVisibility();
-                buttonListener.onButtonPressed(imageIndex);
-            }
+        //Decrement index to traverse back in array of animals and check if index>=0 - disable previous button if false
+        btn_prev.setOnClickListener(v -> {
+            imageIndex--;
+            SetButtonVisibility();
+            buttonListener.onButtonPressed(imageIndex);
         });
 
-        btn_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageIndex++;
-                //Log.e("imgind", imageIndex.toString());
-                SetButtonVisibility();
-                buttonListener.onButtonPressed(imageIndex);
-            }
+        //increment index to traverse ahead in array of animals and check if index<array size - disable next button if false
+        btn_next.setOnClickListener(v -> {
+            imageIndex++;
+            //Log.e("imgind", imageIndex.toString());
+            SetButtonVisibility();
+            buttonListener.onButtonPressed(imageIndex);
         });
 
         chk_slideshow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                //To avoid collision between slideshow and gallery fragment function calls, make sure both are not checked together
+                //Inform user to close slide show if gallery is active
                 if(isChecked && chk_gallery.isChecked())
                 {
                     Toast.makeText(getActivity(),"Please close gallery to view slide show",Toast.LENGTH_SHORT).show();
-                    chk_slideshow.toggle();
+                    chk_slideshow.toggle();     //uncheck the slideshow button
                 }
                 else
                 {
+                    //call the slideshow checkbox interface function to toggle which then handles the call to imageFragment which in turn handles slideshow functionality
                     if(isChecked)
                         buttonListener.onCheckStatusChanged(true);
                     else
@@ -117,30 +120,31 @@ public class OptionsFragment extends Fragment {
             }
         });
 
-        chk_gallery.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        chk_gallery.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
-                if(isChecked && chk_slideshow.isChecked())
-                {
-                    Toast.makeText(getActivity(),"Please close slideshow to view gallery",Toast.LENGTH_SHORT).show();
-                    chk_gallery.toggle();
-                }
-
-                else
-                {
-                    if(isChecked)
-                        buttonListener.onGalleryCheckStatusChanged(true);
-                    else
-                        buttonListener.onGalleryCheckStatusChanged(false);
-                }
-
+            //To avoid collision between slideshow and gallery fragment function calls, make sure both are not checked together
+            //Inform user to close gallery if slide show is active
+            if(isChecked && chk_slideshow.isChecked())
+            {
+                Toast.makeText(getActivity(),"Please close slideshow to view gallery",Toast.LENGTH_SHORT).show();
+                chk_gallery.toggle();     //uncheck the gallery button
             }
+
+            else
+            {
+                //call the gallery checkbox interface function to toggle which then handles the call to galleyFragment
+                if(isChecked)
+                    buttonListener.onGalleryCheckStatusChanged(true);
+                else
+                    buttonListener.onGalleryCheckStatusChanged(false);
+            }
+
         });
 
         return root;
     }
 
+    //Called when fragment is first attached to its context
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -156,10 +160,13 @@ public class OptionsFragment extends Fragment {
         buttonListener=null;
     }
 
+    //Check if image index is out of range
     public void SetButtonVisibility()
     {
+        //Disable prev button to avoid negative indices
         if (imageIndex == 0)
             btn_prev.setEnabled(false);
+        //disable next button to avoid indices greater than array size
         else if(imageIndex >= 5)
             btn_next.setEnabled(false);
         else if(imageIndex>0 && imageIndex<5)

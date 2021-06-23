@@ -1,18 +1,11 @@
 package com.example.photoalbum;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,9 +14,10 @@ import java.util.TimerTask;
  * Use the {@link ImageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class ImageFragment extends Fragment
 {
-    private Integer[] images={R.drawable.animal13,R.drawable.animal14,R.drawable.animal15,R.drawable.animal16,R.drawable.animal17,R.drawable.animal18};
+    private final Integer[] images={R.drawable.animal13,R.drawable.animal14,R.drawable.animal15,R.drawable.animal16,R.drawable.animal17,R.drawable.animal18};
     private ImageView imageView;
     private Timer timer;
     private Integer slideshowIndex;
@@ -86,6 +80,7 @@ public class ImageFragment extends Fragment
             imageView.setImageResource(images[index]);
         }
         slideshowIndex = 0;
+        //
         timer = new Timer();
         return root;
     }
@@ -94,6 +89,7 @@ public class ImageFragment extends Fragment
     {
         if(isChecked)
         {
+            //Schedules the specified task for repeated fixed-delay execution, beginning after the specified delay
             timer.schedule(new TimerTask() {
                 @Override
                 public void run()
@@ -106,7 +102,7 @@ public class ImageFragment extends Fragment
         }
         else
         {
-            timer.cancel();
+            timer.cancel(); //terminate the timer and terminate the executing thread
             timer = new Timer();
         }
     }
